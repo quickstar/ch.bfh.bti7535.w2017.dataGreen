@@ -1,12 +1,14 @@
 package ch.bfh.bti7535.w2017;
 
 import ch.bfh.bti7535.w2017.io.ReviewParser;
+import ch.bfh.bti7535.w2017.util.RessourceLoader;
 import weka.core.Instances;
 import weka.core.converters.TextDirectoryLoader;
 
 public class Runner {
     public static void main(String[] args) {
-        ReviewParser p = new ReviewParser(new TextDirectoryLoader(), "C:\\git\\ch.bfh.bti7535.w2017.dataGreen\\src\\main\\java\\resources\\reviews");
+        String path = new RessourceLoader().getRessource("reviews").getPath();
+        ReviewParser p = new ReviewParser(new TextDirectoryLoader(), path);
         Instances i = p.getParsedFiles();
     }
 }
