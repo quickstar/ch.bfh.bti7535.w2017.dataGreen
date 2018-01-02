@@ -10,5 +10,8 @@ public class Runner {
         String path = new RessourceLoader().getRessource("reviews").getPath();
         ReviewParser p = new ReviewParser(new TextDirectoryLoader(), path);
         Instances i = p.getParsedFiles();
+
+
+
     }
 }
