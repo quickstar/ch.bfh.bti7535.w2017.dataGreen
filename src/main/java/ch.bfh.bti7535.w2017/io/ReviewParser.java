@@ -24,6 +24,7 @@ public class ReviewParser {
         Instances parsedFiles = null;
         try {
             parsedFiles = this.loader.getDataSet();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
