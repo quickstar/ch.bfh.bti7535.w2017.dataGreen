@@ -1,4 +1,4 @@
-package main.java.ch.bfh.bti7535.w2017.io;
+package ch.bfh.bti7535.w2017.io;
 
 import weka.core.converters.TextDirectoryLoader;
 
