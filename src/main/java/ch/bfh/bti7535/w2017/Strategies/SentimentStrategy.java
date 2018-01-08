@@ -12,6 +12,7 @@ import weka.core.stemmers.Stemmer;
 import weka.core.stopwords.StopwordsHandler;
 import weka.core.tokenizers.NGramTokenizer;
 import weka.core.tokenizers.Tokenizer;
+import weka.core.tokenizers.WordTokenizer;
 import weka.filters.Filter;
 import weka.filters.MultiFilter;
 import weka.filters.unsupervised.attribute.StringToWordVector;
@@ -29,14 +30,22 @@ public abstract class SentimentStrategy implements Runnable {
     }
 
     public Tokenizer getTokenizer() {
+        if(this.tokenizer == null) {
+            WordTokenizer tokenizer = new WordTokenizer();
+            tokenizer.setDelimiters(" \r \n \t.,;:'\"()?!");
+            this.tokenizer = tokenizer;
+        }
+        /**
         if (this.tokenizer == null) {
             NGramTokenizer gramTokenizer = new NGramTokenizer();
-            gramTokenizer.setDelimiters(" \n \t.,;:'\"()?!");
+            gramTokenizer.setDelimiters(" \r \n \t.,;:'\"()?!");
             gramTokenizer.setNGramMinSize(1);
             gramTokenizer.setNGramMaxSize(3);
             this.tokenizer = gramTokenizer;
         }
+         */
         return this.tokenizer;
+
     }
 
     public void setTokenizer(Tokenizer tokenizer) {
@@ -101,11 +110,13 @@ public abstract class SentimentStrategy implements Runnable {
         StringToWordVector wordVector = new StringToWordVector();
         wordVector.setStopwordsHandler(handler);
         wordVector.setInputFormat(data);
-        wordVector.setStemmer(this.getStemmer());
-        wordVector.setIDFTransform(true);
-        wordVector.setTFTransform(true);
-        wordVector.setOutputWordCounts(true);
-        //stwv.setTokenizer(this.getTokenizer());
+        //wordVector.setStemmer(this.getStemmer());
+        wordVector.setIDFTransform(false);
+        wordVector.setTFTransform(false);
+        wordVector.setOutputWordCounts(false);
+        wordVector.setWordsToKeep(3000);
+        wordVector.setPeriodicPruning(-1);
+        wordVector.setTokenizer(this.getTokenizer());
 
         return wordVector;
     }
