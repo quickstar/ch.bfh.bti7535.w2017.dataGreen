@@ -3,7 +3,7 @@ package ch.bfh.bti7535.w2017.Strategies;
 import ch.bfh.bti7535.w2017.evaluation.Evaluator;
 import ch.bfh.bti7535.w2017.io.DirectoryLoader;
 import ch.bfh.bti7535.w2017.io.ReviewParser;
-import ch.bfh.bti7535.w2017.util.RessourceLoader;
+import ch.bfh.bti7535.w2017.util.ResourceLoader;
 import weka.attributeSelection.ClassifierAttributeEval;
 import weka.attributeSelection.Ranker;
 import weka.classifiers.AbstractClassifier;
@@ -12,7 +12,6 @@ import weka.core.Instances;
 import weka.core.stemmers.NullStemmer;
 import weka.core.stemmers.Stemmer;
 import weka.core.stopwords.StopwordsHandler;
-import weka.core.tokenizers.NGramTokenizer;
 import weka.core.tokenizers.Tokenizer;
 import weka.core.tokenizers.WordTokenizer;
 import weka.filters.Filter;
@@ -70,7 +69,7 @@ public abstract class SentimentStrategy implements Runnable {
 
     public Instances loadGoldStandard() {
         //get Training Data
-        String path = new RessourceLoader().getRessource("reviews").getPath();
+        String path = new ResourceLoader().getResource("reviews").getPath();
         ReviewParser reviewParser = new ReviewParser(new DirectoryLoader(), path);
         Instances data = reviewParser.getParsedFiles();
         return data;
