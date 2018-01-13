@@ -4,10 +4,12 @@ import ch.bfh.bti7535.w2017.evaluation.Evaluator;
 import ch.bfh.bti7535.w2017.io.DirectoryLoader;
 import ch.bfh.bti7535.w2017.io.ReviewParser;
 import ch.bfh.bti7535.w2017.util.RessourceLoader;
+import weka.attributeSelection.ClassifierAttributeEval;
+import weka.attributeSelection.Ranker;
 import weka.classifiers.AbstractClassifier;
 import weka.classifiers.Evaluation;
 import weka.core.Instances;
-import weka.core.stemmers.SnowballStemmer;
+import weka.core.stemmers.NullStemmer;
 import weka.core.stemmers.Stemmer;
 import weka.core.stopwords.StopwordsHandler;
 import weka.core.tokenizers.NGramTokenizer;
@@ -15,6 +17,7 @@ import weka.core.tokenizers.Tokenizer;
 import weka.core.tokenizers.WordTokenizer;
 import weka.filters.Filter;
 import weka.filters.MultiFilter;
+import weka.filters.supervised.attribute.AttributeSelection;
 import weka.filters.unsupervised.attribute.StringToWordVector;
 
 import java.util.ArrayList;
@@ -54,7 +57,7 @@ public abstract class SentimentStrategy implements Runnable {
 
     public Stemmer getStemmer() {
         if (this.stemmer == null) {
-            this.stemmer = new SnowballStemmer();
+            this.stemmer = new NullStemmer();
         }
         return this.stemmer;
     }
@@ -88,6 +91,11 @@ public abstract class SentimentStrategy implements Runnable {
                 filters.add(wordVector);
             }
 
+            AttributeSelection attributeSelection = new AttributeSelection();
+            attributeSelection.setEvaluator(new ClassifierAttributeEval());
+            attributeSelection.setSearch(new Ranker());
+            filters.add(attributeSelection);
+
             MultiFilter mf = new MultiFilter();
             mf.setFilters(filters.toArray(new Filter[filters.size()]));
             mf.setInputFormat(data);
@@ -110,10 +118,11 @@ public abstract class SentimentStrategy implements Runnable {
         StringToWordVector wordVector = new StringToWordVector();
         wordVector.setStopwordsHandler(handler);
         wordVector.setInputFormat(data);
+
         //wordVector.setStemmer(this.getStemmer());
-        wordVector.setIDFTransform(false);
-        wordVector.setTFTransform(false);
-        wordVector.setOutputWordCounts(false);
+        wordVector.setIDFTransform(true);
+        wordVector.setTFTransform(true);
+        wordVector.setOutputWordCounts(true);
         wordVector.setWordsToKeep(3000);
         wordVector.setPeriodicPruning(-1);
         wordVector.setTokenizer(this.getTokenizer());
