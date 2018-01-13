@@ -1,8 +1,9 @@
 package ch.bfh.bti7535.w2017;
 
 
-import ch.bfh.bti7535.w2017.Strategies.NaiveBayes.NaiveBayesSentimentStrategy;
+import ch.bfh.bti7535.w2017.Strategies.BaseLine.BaseLineStrategy;
 import ch.bfh.bti7535.w2017.features.DataGreenStopWordHandler;
+import weka.core.stemmers.SnowballStemmer;
 import weka.core.stopwords.StopwordsHandler;
 
 import java.util.ArrayList;
@@ -13,6 +14,6 @@ public class Runner {
         List<StopwordsHandler> stopwordsHandlers = new ArrayList<>();
         stopwordsHandlers.add(new DataGreenStopWordHandler());
 
-        new NaiveBayesSentimentStrategy(stopwordsHandlers).run();
+        new BaseLineStrategy(new SnowballStemmer()).prepare();
     }
 }

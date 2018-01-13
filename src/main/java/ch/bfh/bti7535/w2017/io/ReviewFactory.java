@@ -17,6 +17,6 @@ public class ReviewFactory {
                 return new WrongClassified(shouldBePositive);
             }
         }
-        return new UnclassifiableReview(shouldBePositive);
+        return new Unclassifiable(shouldBePositive);
     }
 }

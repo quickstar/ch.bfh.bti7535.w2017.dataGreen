@@ -23,7 +23,7 @@ public class BaseLineStrategy {
             if (r instanceof CorrectlyClassified) {
                 correctClassified++;
             }
-            if (r instanceof UnclassifiableReview) {
+            if (r instanceof Unclassifiable) {
                 unclassifiable++;
             }
             if (r instanceof WrongClassified) {
