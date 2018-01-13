@@ -4,19 +4,19 @@ public class ReviewFactory {
     public static BaseClassifier createReview(int positiveCounter, int negativeCounter, boolean shouldBePositive) {
         if (shouldBePositive) {
             if (positiveCounter > negativeCounter) {
-                return new CorrectlyClassified(shouldBePositive);
+                return new CorrectlyClassified();
             }
             if (negativeCounter > positiveCounter) {
-                return new WrongClassified(shouldBePositive);
+                return new WrongClassified();
             }
         } else {
             if (negativeCounter > positiveCounter) {
-                return new CorrectlyClassified(shouldBePositive);
+                return new CorrectlyClassified();
             }
             if (positiveCounter > negativeCounter) {
-                return new WrongClassified(shouldBePositive);
+                return new WrongClassified();
             }
         }
-        return new Unclassifiable(shouldBePositive);
+        return new Unclassifiable();
     }
 }
