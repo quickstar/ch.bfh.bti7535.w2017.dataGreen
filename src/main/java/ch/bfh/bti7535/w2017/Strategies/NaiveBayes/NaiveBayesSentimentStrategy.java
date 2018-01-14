@@ -54,10 +54,11 @@ public class NaiveBayesSentimentStrategy extends SentimentStrategy {
                 filters.add(wordVector);
             }
 
+
             AttributeSelection attributeSelection = new AttributeSelection();
             attributeSelection.setEvaluator(new ClassifierAttributeEval());
             attributeSelection.setSearch(new Ranker());
-            filters.add(attributeSelection);
+            //filters.add(attributeSelection);
 
             MultiFilter mf = new MultiFilter();
             mf.setFilters(filters.toArray(new Filter[filters.size()]));
@@ -88,15 +89,10 @@ public class NaiveBayesSentimentStrategy extends SentimentStrategy {
 
     private StringToWordVector createWordVector(StopwordsHandler handler, Instances data) throws Exception {
         StringToWordVector wordVector = new StringToWordVector();
-        wordVector.setStopwordsHandler(handler);
+        //wordVector.setStopwordsHandler(handler);
         wordVector.setInputFormat(data);
 
-        //wordVector.setStemmer(this.getStemmer());
-        wordVector.setIDFTransform(true);
-        wordVector.setTFTransform(true);
-        wordVector.setOutputWordCounts(true);
         wordVector.setWordsToKeep(3000);
-        wordVector.setPeriodicPruning(-1);
         wordVector.setTokenizer(this.getTokenizer());
 
         return wordVector;

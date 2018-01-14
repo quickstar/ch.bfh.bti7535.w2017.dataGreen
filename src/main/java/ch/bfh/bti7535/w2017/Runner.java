@@ -1,6 +1,7 @@
 package ch.bfh.bti7535.w2017;
 
 import ch.bfh.bti7535.w2017.Strategies.BaseLine.BaseLineStrategy;
+import ch.bfh.bti7535.w2017.Strategies.NaiveBayes.NaiveBayesSentimentStrategy;
 import ch.bfh.bti7535.w2017.features.DataGreenStopWordHandler;
 import weka.core.stopwords.StopwordsHandler;
 
@@ -12,6 +13,12 @@ public class Runner {
         List<StopwordsHandler> stopwordsHandlers = new ArrayList<>();
         stopwordsHandlers.add(new DataGreenStopWordHandler());
 
-        new BaseLineStrategy().prepare();
+        //new BaseLineStrategy().prepare();
+
+
+        NaiveBayesSentimentStrategy naiveBayesSentimentStrategy = new NaiveBayesSentimentStrategy(stopwordsHandlers);
+        naiveBayesSentimentStrategy.run();
+        System.out.println(naiveBayesSentimentStrategy.getSummary());
+
     }
 }

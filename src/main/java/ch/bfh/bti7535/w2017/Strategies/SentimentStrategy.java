@@ -21,7 +21,6 @@ public abstract class SentimentStrategy implements Runnable {
     public Tokenizer getTokenizer() {
         if (this.tokenizer == null) {
             WordTokenizer tokenizer = new WordTokenizer();
-            tokenizer.setDelimiters(" \r \n \t.,;:'\"()?!");
             this.tokenizer = tokenizer;
         }
         return this.tokenizer;
