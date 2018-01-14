@@ -22,6 +22,9 @@ import weka.filters.unsupervised.attribute.StringToWordVector;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation of the NaiveBayesSentimentStrategy.
+ */
 public class NaiveBayesSentimentStrategy extends SentimentStrategy {
     public NaiveBayesSentimentStrategy(List<StopwordsHandler> stopWordHandlers) {
         super(stopWordHandlers);
@@ -78,6 +81,10 @@ public class NaiveBayesSentimentStrategy extends SentimentStrategy {
         }
     }
 
+    /**
+     * Load's the Gold Standard.
+     * @return Instances
+     */
     public Instances loadGoldStandard() {
         //get Training Data
         String path = new ResourceLoader().getResource("reviews").getPath();
@@ -85,7 +92,6 @@ public class NaiveBayesSentimentStrategy extends SentimentStrategy {
         Instances data = reviewParser.getParsedFiles();
         return data;
     }
-
 
     private StringToWordVector createWordVector(StopwordsHandler handler, Instances data) throws Exception {
         StringToWordVector wordVector = new StringToWordVector();

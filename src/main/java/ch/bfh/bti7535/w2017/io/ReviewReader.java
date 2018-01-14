@@ -12,17 +12,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Reads and analyzes the reviews.
+ */
 public class ReviewReader {
     private static final String POSITIVE_FOLDER = "reviews/pos";
     private static final String NEGATIVE_FOLDER = "reviews/neg";
     private List<String> positiveWords;
     private List<String> negativeWords;
 
+    /**
+     * Initializes the class and loads the positive and negative word list into memory.
+     */
     public ReviewReader() {
         this.positiveWords = new SimpleWordReader("words/positive.txt").readAllWords();
         this.negativeWords = new SimpleWordReader("words/negative.txt").readAllWords();
     }
 
+    /**
+     * Returns the occurrences of the given word, in the source.
+     * @param source
+     * @param word
+     * @return word occurrences in source
+     */
     public static int countWord(String source, String word) {
         int i;
         int last = 0;
@@ -35,6 +47,10 @@ public class ReviewReader {
         return count;
     }
 
+    /**
+     * @param path
+     * @return a list of all Files in the given path.
+     */
     private List<File> getFilesInFolder(String path) {
         URL url = getClass().getClassLoader().getResource(path);
         List<File> filesInFolder = null;
@@ -60,13 +76,19 @@ public class ReviewReader {
         return reviews;
     }
 
-    private BaseClassifier analyzeReview(File f, boolean shouldBePositive) {
+    /**
+     * Reads the review and count's all the words.
+     * @param file
+     * @param shouldBePositive
+     * @return a classified instance.
+     */
+    private BaseClassifier analyzeReview(File file, boolean shouldBePositive) {
         StringBuilder sb = new StringBuilder();
         int positiveCounter = 0;
         int negativeCounter = 0;
 
         try {
-            Files.newBufferedReader(f.toPath(), Charset.defaultCharset()).lines().forEach(s -> sb.append(s.toLowerCase()));
+            Files.newBufferedReader(file.toPath(), Charset.defaultCharset()).lines().forEach(s -> sb.append(s.toLowerCase()));
         } catch (IOException e) {
             e.printStackTrace();
         }
