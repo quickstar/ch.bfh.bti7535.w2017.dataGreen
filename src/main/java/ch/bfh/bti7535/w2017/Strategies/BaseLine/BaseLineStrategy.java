@@ -1,7 +1,9 @@
 package ch.bfh.bti7535.w2017.Strategies.BaseLine;
 
-import ch.bfh.bti7535.w2017.io.*;
-import weka.core.stemmers.Stemmer;
+import ch.bfh.bti7535.w2017.io.BaseClassifier;
+import ch.bfh.bti7535.w2017.io.CorrectlyClassified;
+import ch.bfh.bti7535.w2017.io.ReviewReader;
+import ch.bfh.bti7535.w2017.io.Unclassifiable;
 
 import java.util.List;
 
